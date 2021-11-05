@@ -97,10 +97,20 @@ private void removeDvd() throws DvdLibraryDaoException {
 }
 
 private void editDvd() throws DvdLibraryDaoException {
-    view.displayEditDvdBanner();
-    String titleToEdit = view.getDvdTitleChoice();
-    Dvd newDvd = view.getNewDvdInfo();
-    dao.editDvd(newDvd);
+    String title = view.getDvdTitleChoice();
+    Dvd dvdToEdit = dao.getDvd(title);
+        if (dvdToEdit != null){
+        view.displayEditDvdBanner();
+        view.editDvd(dvdToEdit);
+        dao.editDvd(dvdToEdit);
+        view.displayEditedDvdBanner();
+    }
+        else
+        {
+         view.displayEditedDvdNotPresentBanner();
+        }
+  
+    
    }
 
 private void unknownCommand() {
